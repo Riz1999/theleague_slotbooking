@@ -2,6 +2,7 @@ import streamlit as st
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import pandas as pd
+import pytz
 from datetime import datetime
 
 SCOPE = "https://www.googleapis.com/auth/spreadsheets"
@@ -101,7 +102,10 @@ def slot_main():
             booked = list(time_df["Slot Timing"])
             
             all_slots = []
-
+            
+            UTC = pytz.utc
+            IST = pytz.timezone('Asia/Kolkata')
+            
             hr = str(datetime.now(IST).time())
 
             for i in range(int(hr[0:2]),22):
