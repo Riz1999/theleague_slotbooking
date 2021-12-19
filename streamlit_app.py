@@ -84,58 +84,73 @@ def slot_main():
     mail_id = st.text_input("Enter your woxsen Mail ID")
 
     if len(mail_id) == 0 or "woxsen.edu.in" in mail_id:
+        
         name = st.text_input("Enter your Name")
         contact = st.text_input("Enter your contact")
 
-        sports = ["-","Football pitch 1","Football pitch 2","Box Cricket","Basketball",
-                  "Sand Volleyball","Volleyball Court 1","Volleyball Court 2",
-                  "Lawn Tennis Court 1","Lawn Tennis Court 2","Kabaddi","Golf","Croquet"]
-        sports.sort()
-        sport_type = st.selectbox("Choose your Venue",sports)
+        if len(name) != 0 and len(contact) != 0 and len(mail_id) != 0:
+            sports = ["-","Football pitch 1","Football pitch 2","Box Cricket","Basketball",
+                      "Sand Volleyball","Volleyball Court 1","Volleyball Court 2",
+                      "Lawn Tennis Court 1","Lawn Tennis Court 2","Kabaddi","Golf","Croquet"]
+            sports.sort()
+            sport_type = st.selectbox("Choose your Venue",sports)
 
 
-        if sport_type != "-":
-            
-            df = get_data(gsheet_connector)
-            time_df = df[df["Sport Area"] == sport_type]
-            
-            booked = list(time_df["Slot Timing"])
-            
-            all_slots = []
-            
-            UTC = pytz.utc
-            IST = pytz.timezone('Asia/Kolkata')
-            
-            hr = str(datetime.now(IST).time())
+            if sport_type != "-":
+                
+                df = get_data(gsheet_connector)
+                time_df = df[df["Sport Area"] == sport_type]
+                
+                booked = list(time_df["Slot Timing"])
+                
+                all_slots = []
+                
+                UTC = pytz.utc
+                IST = pytz.timezone('Asia/Kolkata')
+                
+                hr = str(datetime.now(IST).time())
 
-            for i in range(int(hr[0:2]),22):
-                x = "{}:00 to {}:00".format(i+1,i+2)
-                all_slots.append(x)
-
-            new_slots = ["-"]
-            
-            for s in all_slots:
-                if s not in booked:
-                    new_slots.append(s)
+                if int(hr[0:2]) == 23:
+                    hr = "00"
                     
-            if len(new_slots) == 1:
-                header2("No slots avaiable")
+                for i in range(int(hr[0:2]),22):
+                    x = "{}:00 to {}:00".format(i+1,i+2)
+                    all_slots.append(x)
 
-            else:
-                slot_time = st.selectbox("Choose your time slot", new_slots)
+                new_slots = ["-"]
+                
+                for s in all_slots:
+                    if s not in booked:
+                        new_slots.append(s)
 
-                if slot_time != "-":
-                    if st.button("Book Slot"):
-                        add_row_to_gsheet(
-                            gsheet_connector, [[name, mail_id, contact, sport_type, slot_time]]
-                        )
-                        header2("Your slot has been booked!")
-                        st.success(" **Take a Screenshot of the slot details** ")
-                        st.write("**Name:**",name)
-                        st.write("**Play Area:**", sport_type)
-                        st.write("**Slot Time:**", slot_time)
-                        st.info("Click refresh before choosing different time slot")
-            st.button("refresh")
+                del_slots = []
+
+                for i in range(1,6):
+                    x = "{}:00 to {}:00".format(i,i+1)
+                    del_slots.append(x)
+
+                for i in del_slots:
+                    if i in new_slots:
+                        new_slots.remove(i)
+                        
+                if len(new_slots) == 1:
+                    header2("No slots avaiable")
+
+                else:
+                    slot_time = st.selectbox("Choose your time slot", new_slots)
+
+                    if slot_time != "-":
+                        if st.button("Book Slot"):
+                            add_row_to_gsheet(
+                                gsheet_connector, [[name, mail_id, contact, sport_type, slot_time]]
+                            )
+                            header2("Your slot has been booked!")
+                            st.success(" **Take a Screenshot of the slot details** ")
+                            st.write("**Name:**",name)
+                            st.write("**Venue:**", sport_type)
+                            st.write("**Slot Time:**", slot_time)
+                            st.info("Click refresh before choosing different time slot")
+                st.button("refresh")
 
 
     else:
