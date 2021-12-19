@@ -99,7 +99,7 @@ def slot_main():
             if sport_type != "-":
                 
                 df = get_data(gsheet_connector)
-                time_df = df[df["Sport Area"] == sport_type]
+                time_df = df[df["Venue"] == sport_type]
                 
                 booked = list(time_df["Slot Timing"])
                 
