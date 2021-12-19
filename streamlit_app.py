@@ -102,7 +102,7 @@ def slot_main():
             
             all_slots = []
 
-            hr = str(datetime.now().time())
+            hr = str(datetime.now(IST).time())
 
             for i in range(int(hr[0:2]),22):
                 x = "{}:00 to {}:00".format(i+1,i+2)
@@ -127,9 +127,9 @@ def slot_main():
                         )
                         header2("Your slot has been booked!")
                         st.success(" **Take a Screenshot of the slot details** ")
-                        st.write("Name:",name)
-                        st.write("Play Area:", sport_type)
-                        st.write("Slot Time:", slot_time)
+                        st.write("**Name:**",name)
+                        st.write("**Play Area:**", sport_type)
+                        st.write("**Slot Time:**", slot_time)
                         st.info("Click refresh before choosing different time slot")
             st.button("refresh")
 
