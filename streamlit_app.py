@@ -114,7 +114,7 @@ def slot_main():
                     hr = "00"
                     
                 for i in range(int(hr[0:2]),22):
-                    x = "{}:00 to {}:00".format(i+1,i+2)
+                    x = "{}:00 - {}:00".format(i+1,i+2)
                     all_slots.append(x)
 
                 new_slots = ["-"]
@@ -126,7 +126,7 @@ def slot_main():
                 del_slots = []
 
                 for i in range(1,6):
-                    x = "{}:00 to {}:00".format(i,i+1)
+                    x = "{}:00 - {}:00".format(i,i+1)
                     del_slots.append(x)
 
                 for i in del_slots:
