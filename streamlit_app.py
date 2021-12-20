@@ -110,8 +110,9 @@ def slot_main():
                 
                 hr = str(datetime.now(IST).time())
 
-                if int(hr[0:2]) == 22:
+                if int(hr[0:2]) == 23:
                     header2("Booking opens at 12AM")
+                    
                 else:
                     for i in range(int(hr[0:2]),22):
                        x = "{}:00 - {}:00".format(i+1,i+2)
