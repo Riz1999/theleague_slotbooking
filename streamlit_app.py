@@ -110,8 +110,8 @@ def slot_main():
                 
                 hr = str(datetime.now(IST).time())
 
-                if int(hr[0:2]) == 23:
-                    hr = "00"
+#                 if int(hr[0:2]) == 23:
+#                     hr = "00"
                     
                 for i in range(int(hr[0:2]),22):
                     x = "{}:00 - {}:00".format(i+1,i+2)
@@ -125,7 +125,7 @@ def slot_main():
 
                 del_slots = []
 
-                for i in range(1,6):
+                for i in range(0,6):
                     x = "{}:00 - {}:00".format(i,i+1)
                     del_slots.append(x)
 
@@ -134,7 +134,7 @@ def slot_main():
                         new_slots.remove(i)
                         
                 if len(new_slots) == 1:
-                    header2("No slots avaiable")
+                    header2("No Slots Available")
 
                 else:
                     slot_time = st.selectbox("Choose your time slot", new_slots)
