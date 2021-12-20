@@ -136,21 +136,21 @@ def slot_main():
                     if len(new_slots) == 1:
                         header2("No Slots Available")
 
-                else:
-                    slot_time = st.selectbox("Choose your time slot", new_slots)
+                    else:
+                        slot_time = st.selectbox("Choose your time slot", new_slots)
 
-                    if slot_time != "-":
-                        if st.button("Book Slot"):
-                            add_row_to_gsheet(
-                                gsheet_connector, [[name, mail_id, contact, sport_type, slot_time]]
-                            )
-                            header2("Your slot has been booked!")
-                            st.success(" **Take a Screenshot of the slot details** ")
-                            st.write("**Name:**",name)
-                            st.write("**Venue:**", sport_type)
-                            st.write("**Slot Time:**", slot_time)
-                            st.info("Click refresh before choosing different time slot")
-                st.button("refresh")
+                        if slot_time != "-":
+                            if st.button("Book Slot"):
+                                add_row_to_gsheet(
+                                    gsheet_connector, [[name, mail_id, contact, sport_type, slot_time]]
+                                )
+                                header2("Your slot has been booked!")
+                                st.success(" **Take a Screenshot of the slot details** ")
+                                st.write("**Name:**",name)
+                                st.write("**Venue:**", sport_type)
+                                st.write("**Slot Time:**", slot_time)
+                                st.info("Click refresh before choosing different time slot")
+                    st.button("refresh")
 
 
     else:
