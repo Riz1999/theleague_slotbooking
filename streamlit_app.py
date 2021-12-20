@@ -110,31 +110,32 @@ def slot_main():
                 
                 hr = str(datetime.now(IST).time())
 
-#                 if int(hr[0:2]) == 23:
-#                     hr = "00"
-                    
-                for i in range(int(hr[0:2]),22):
-                    x = "{}:00 - {}:00".format(i+1,i+2)
-                    all_slots.append(x)
-
-                new_slots = ["-"]
+                if int(hr[0:2]) == 22:
+                    header2('Booking opens at 12AM")
                 
-                for s in all_slots:
-                    if s not in booked:
-                        new_slots.append(s)
+                else:
+                    for i in range(int(hr[0:2]),22):
+                        x = "{}:00 - {}:00".format(i+1,i+2)
+                        all_slots.append(x)
 
-                del_slots = []
+                    new_slots = ["-"]
 
-                for i in range(0,6):
-                    x = "{}:00 - {}:00".format(i,i+1)
-                    del_slots.append(x)
+                    for s in all_slots:
+                        if s not in booked:
+                            new_slots.append(s)
 
-                for i in del_slots:
-                    if i in new_slots:
-                        new_slots.remove(i)
-                        
-                if len(new_slots) == 1:
-                    header2("No Slots Available")
+                    del_slots = []
+
+                    for i in range(0,6):
+                        x = "{}:00 - {}:00".format(i,i+1)
+                        del_slots.append(x)
+
+                    for i in del_slots:
+                        if i in new_slots:
+                            new_slots.remove(i)
+
+                    if len(new_slots) == 1:
+                        header2("No Slots Available")
 
                 else:
                     slot_time = st.selectbox("Choose your time slot", new_slots)
