@@ -112,12 +112,11 @@ def slot_main():
 
                 if int(hr[0:2]) == 22:
                     header2("Booking opens at 12AM")
-                
                 else:
                     for i in range(int(hr[0:2]),22):
-                        x = "{}:00 - {}:00".format(i+1,i+2)
-                        all_slots.append(x)
-
+                       x = "{}:00 - {}:00".format(i+1,i+2)
+                       all_slots.append(x)
+                    
                     new_slots = ["-"]
 
                     for s in all_slots:
