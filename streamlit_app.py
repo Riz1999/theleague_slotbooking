@@ -41,7 +41,7 @@ def add_row_to_gsheet(gsheet_connector, row) -> None:
         .execute()
     )
 
-@st.experimental_singleton()
+@st.cache_resource()
 def connect_to_gsheet():
     cred = {
   "type": "service_account",
@@ -67,8 +67,6 @@ def connect_to_gsheet():
 
 
 def slot_main():
-
-    st.set_page_config(page_title="The League: Slot Booking", layout="centered")
 
     col1, col2, col3 = st.columns([0.4,1,0.2])
     with col2:
@@ -170,4 +168,5 @@ def slot_main():
 
 
 if __name__ == "__main__":
+    st.set_page_config(page_title="The League: Slot Booking", layout="centered")
     slot_main()
